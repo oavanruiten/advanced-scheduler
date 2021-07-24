@@ -1,0 +1,77 @@
+{
+  "name": "advanced-scheduler",
+  "description": "CLI to interact with the Advanced Scheduler Heroku Add-on",
+  "version": "2.1.0",
+  "author": "Oscar van Ruiten",
+  "bugs": "https://github.com/oavanruiten/advanced-scheduler/issues",
+  "dependencies": {
+    "@heroku-cli/command": "^8.5.0",
+    "@oclif/command": "^1.8.0",
+    "@oclif/config": "^1.17.0",
+    "cli-ux": "^5.6.3",
+    "cron-parser": "^3.5.0",
+    "cronstrue": "^1.114.0",
+    "heroku-cli-util": "^8.0.12",
+    "http-call": "^5.3.0",
+    "moment-timezone": "^0.5.33"
+  },
+  "devDependencies": {
+    "@heroku-cli/schema": "^1.0.25",
+    "@oclif/dev-cli": "^1.26.0",
+    "@oclif/plugin-help": "^3.2.2",
+    "@oclif/test": "^1.2.8",
+    "@types/chai": "^4.2.21",
+    "@types/mocha": "^8.2.3",
+    "@types/node": "^16.3.3",
+    "@types/supports-color": "^8.1.1",
+    "chai": "^4.3.4",
+    "eslint": "^7.31.0",
+    "eslint-config-oclif": "^3.1.0",
+    "eslint-config-oclif-typescript": "^0.2.0",
+    "globby": "^11.0.4",
+    "mocha": "^9.0.2",
+    "nock": "^13.1.1",
+    "nyc": "^15.1.0",
+    "ts-node": "^10.1.0",
+    "typescript": "^4.3.5"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "files": [
+    "/lib",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json",
+    "/yarn.lock"
+  ],
+  "homepage": "https://github.com/oavanruiten/advanced-scheduler",
+  "keywords": [
+    "oclif-plugin",
+    "advanced scheduler",
+    "heroku add-on",
+    "heroku elements",
+    "heroku scheduler",
+    "service api",
+    "advanced scheduler cli",
+    "cli",
+    "heroku cli",
+    "heroku",
+    "heroki cli plugin"
+  ],
+  "license": "MIT",
+  "oclif": {
+    "commands": "./lib/commands",
+    "bin": "heroku",
+    "devPlugins": [
+      "@oclif/plugin-help"
+    ]
+  },
+  "repository": "oavanruiten/advanced-scheduler",
+  "scripts": {
+    "postpack": "rm -f oclif.manifest.json",
+    "posttest": "eslint . --ext .ts --config .eslintrc",
+    "prepack": "rm -rf lib && tsc -b && oclif-dev manifest",
+    "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\"",
+    "version": "oclif-dev readme && git add README.md"
+  }
+}
