@@ -143,53 +143,53 @@ export default class TriggersUpdate extends Command {
 
     ux.action.start(`Updating ${cli.color.hex('#af6eff')('Advanced Scheduler')} trigger`)
 
-    try {
-      const { body: { trigger } } = await HTTP.get<{message: string, code: string, trigger: Trigger}>(`https://api.advancedscheduler.io/triggers/${args.uuid}`, {headers: {authorization: `Bearer ${token}`}})
+    const { body: { trigger } } = await HTTP.get<{message: string, code: string, trigger: Trigger}>(`https://api.advancedscheduler.io/triggers/${args.uuid}`, {headers: {authorization: `Bearer ${token}`}})
 
-      if (flags.name) trigger.name = flags.name;
-      if (flags.frequencyType) trigger.frequencyType = (flags.frequencyType as FrequencyType);
-      if (flags.schedule) trigger.schedule = flags.schedule;
-      if (flags.value) trigger.value = flags.value;
-      if (flags.timezone) trigger.timezone = flags.timezone;
-      if (flags.state) trigger.state = (flags.state as State);
-      if (flags.dyno) trigger.dyno = (flags.dyno as Dyno);
-      if (flags.timeout) trigger.timeout = flags.timeout;
+    if (flags.name) trigger.name = flags.name;
+    if (flags.frequencyType) trigger.frequencyType = (flags.frequencyType as FrequencyType);
+    if (flags.schedule) trigger.schedule = flags.schedule;
+    if (flags.value) trigger.value = flags.value;
+    if (flags.timezone) trigger.timezone = flags.timezone;
+    if (flags.state) trigger.state = (flags.state as State);
+    if (flags.dyno) trigger.dyno = (flags.dyno as Dyno);
+    if (flags.timeout) trigger.timeout = flags.timeout;
 
-      if (trigger.frequencyType === FrequencyType.ONE_OFF) {
-        const schedule = moment.tz(trigger.schedule, trigger.timezone)
-        const now = moment.tz(trigger.timezone)
-        if (schedule < now) {
-          throw new Error(`Expected --schedule=${trigger.schedule} to be in the future\nSee more help with --help`)
-        }
+    if (trigger.frequencyType === FrequencyType.ONE_OFF) {
+      const schedule = moment.tz(trigger.schedule, trigger.timezone)
+      const now = moment.tz(trigger.timezone)
+      if (schedule < now) {
+        throw new Error(`Expected --schedule=${trigger.schedule} to be in the future\nSee more help with --help`)
       }
+    }
 
-      const options = {
-        headers: {authorization: `Bearer ${token}`},
-        body: { ...trigger },
-      }
+    const options = {
+      headers: {authorization: `Bearer ${token}`},
+      body: { ...trigger },
+    }
 
-      const {body} = await HTTP.put<{message: string, code: string, trigger: Trigger}>(`https://api.advancedscheduler.io/triggers/${args.uuid}`, options)
+    const {body} = await HTTP.put<{message: string, code: string, trigger: Trigger}>(`https://api.advancedscheduler.io/triggers/${args.uuid}`, options)
 
-      ux.action.stop(`${color.green('done')}, updated trigger ${color.hex('#ff93ff')(body.trigger.uuid)}`)
-    } catch (error) {
-      const message = error.body && error.body.message ? error.body.message : error.message
+    ux.action.stop(`${color.green('done')}, updated trigger ${color.hex('#ff93ff')(body.trigger.uuid)}`)
+  }
 
-      switch (message) {
-        case 'Unauthorized.':
-          this.error(message, { exit: 102 })
-          break
-        case 'Forbidden.':
-          this.error(message, { exit: 103 })
-          break
-        case 'Error during validation.':
-          this.error(message, { exit: 104 })
-          break
-        case 'Server Error.':
-          this.error(message, { exit: 106 })
-          break
-        default:
-          this.error(message, { exit: 199 })
-      }
+  async catch(error) {
+    const message = error.body && error.body.message ? error.body.message : error.message
+
+    switch (message) {
+      case 'Unauthorized.':
+        this.error(message, { exit: 102 })
+        break
+      case 'Forbidden.':
+        this.error(message, { exit: 103 })
+        break
+      case 'Error during validation.':
+        this.error(message, { exit: 104 })
+        break
+      case 'Server Error.':
+        this.error(message, { exit: 106 })
+        break
+      default:
+        this.error(message, { exit: 199 })
     }
   }
 }
