@@ -153,6 +153,8 @@ export default class TriggersCreate extends Command {
 
       ux.action.stop(`${color.green('done')}, created trigger ${color.hex('#ff93ff')(body.trigger.uuid)}`)
     } catch (error) {
+      ux.action.stop(color.red('!'))
+      
       const message = error.body && error.body.message ? error.body.message : error.message
 
       switch (message) {

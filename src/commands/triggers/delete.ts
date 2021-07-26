@@ -44,6 +44,8 @@ export default class TriggersDelete extends Command {
 
       ux.action.stop(`${color.green('done')}, deleted trigger with uuid ${color.hex('#ff93ff')(args.uuid)}`)
     } catch (error) {
+      ux.action.stop(color.red('!'))
+
       const message = error.body && error.body.message ? error.body.message : error.message
 
       switch (message) {
