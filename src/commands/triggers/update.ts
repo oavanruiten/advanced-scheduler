@@ -141,7 +141,7 @@ export default class TriggersUpdate extends Command {
     if (!token)
       this.error('Config var ADVANCED_SCHEDULER_API_TOKEN not set, make sure to generate an API token through the Advanced Scheduler Dashboard.', {exit: 101})
 
-    ux.action.start(`Updating ${cli.color.hex('#af6eff')('Advanced Scheduler')} trigger`)
+    //ux.action.start(`Updating ${cli.color.hex('#af6eff')('Advanced Scheduler')} trigger`)
 
     const { body: { trigger } } = await HTTP.get<{message: string, code: string, trigger: Trigger}>(`https://api.advancedscheduler.io/triggers/${args.uuid}`, {headers: {authorization: `Bearer ${token}`}})
 
@@ -169,7 +169,7 @@ export default class TriggersUpdate extends Command {
 
     const {body} = await HTTP.put<{message: string, code: string, trigger: Trigger}>(`https://api.advancedscheduler.io/triggers/${args.uuid}`, options)
 
-    ux.action.stop(`${color.green('done')}, updated trigger ${color.hex('#ff93ff')(body.trigger.uuid)}`)
+    //ux.action.stop(`${color.green('done')}, updated trigger ${color.hex('#ff93ff')(body.trigger.uuid)}`)
   }
 
   async catch(error: any) {
