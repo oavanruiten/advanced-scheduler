@@ -1,7 +1,7 @@
 {
   "name": "advanced-scheduler",
   "description": "CLI to interact with the Advanced Scheduler Heroku Add-on",
-  "version": "2.2.8",
+  "version": "2.2.9",
   "author": "Oscar van Ruiten",
   "bugs": "https://github.com/oavanruiten/advanced-scheduler/issues",
   "dependencies": {

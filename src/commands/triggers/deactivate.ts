@@ -4,6 +4,7 @@ import {HTTP} from 'http-call'
 const cli: any = require('heroku-cli-util')
 import ux from 'cli-ux'
 import color from '@heroku-cli/color'
+import * as moment from 'moment-timezone'
 
 import { Trigger, Dyno, FrequencyType, State } from '../../misc'
 
@@ -29,6 +30,10 @@ export default class TriggersDeactivate extends Command {
   async run() {
     const {args, flags} = this.parse(TriggersDeactivate)
 
+    if (!/^[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}$/i.test(args.uuid)) {
+      this.error(`Expected arg uuid to be a valid uuid\nSee more help with --help`, { exit: 130 })
+    }
+
     const {body: config} = await this.heroku.get<Heroku.ConfigVars>(`/apps/${flags.app}/config-vars`)
 
     const token = config['ADVANCED_SCHEDULER_API_TOKEN']
@@ -44,6 +49,14 @@ export default class TriggersDeactivate extends Command {
       if (!flags.force) {
         if (trigger.state === State.INACTIVE) {
           this.error(`Trigger is already inactive`, { exit: 121 })
+        }
+      }
+
+      if (trigger.frequencyType === FrequencyType.ONE_OFF) {
+        const schedule = moment.tz(trigger.schedule, trigger.timezone)
+        const now = moment.tz(trigger.timezone)
+        if (schedule < now) {
+          this.error(`Expected trigger.schedule=${trigger.schedule} to be in the future\nSee more help with --help`, { exit: 118 })
         }
       }
 

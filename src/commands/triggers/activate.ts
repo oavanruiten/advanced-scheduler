@@ -30,6 +30,10 @@ export default class TriggersActivate extends Command {
   async run() {
     const {args, flags} = this.parse(TriggersActivate)
 
+    if (!/^[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}$/i.test(args.uuid)) {
+      this.error(`Expected arg uuid to be a valid uuid\nSee more help with --help`, { exit: 130 })
+    }
+
     const {body: config} = await this.heroku.get<Heroku.ConfigVars>(`/apps/${flags.app}/config-vars`)
 
     const token = config['ADVANCED_SCHEDULER_API_TOKEN']

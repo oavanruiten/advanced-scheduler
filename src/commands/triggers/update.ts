@@ -82,6 +82,10 @@ export default class TriggersUpdate extends Command {
   async run() {
     const {args, flags} = this.parse(TriggersUpdate)
 
+    if (!/^[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}$/i.test(args.uuid)) {
+      this.error(`Expected arg uuid to be a valid uuid\nSee more help with --help`, { exit: 130 })
+    }
+
     if (flags.name && flags.name.length > 150) {
       this.error(`Expected --name=${flags.name.substring(0, 12) + '...'} to be shorter than 150 characters\nSee more help with --help`, { exit: 110 })
     }
