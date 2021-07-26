@@ -158,7 +158,7 @@ export default class TriggersUpdate extends Command {
       const schedule = moment.tz(trigger.schedule, trigger.timezone)
       const now = moment.tz(trigger.timezone)
       if (schedule < now) {
-        throw new Error(`Expected --schedule=${trigger.schedule} to be in the future\nSee more help with --help`)
+        this.error(`Expected trigger.schedule=${trigger.schedule} to be in the future\nSee more help with --help`, { exit: 118 })
       }
     }
 
