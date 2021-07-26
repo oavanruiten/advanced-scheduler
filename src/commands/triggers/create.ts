@@ -9,8 +9,6 @@ import * as parser from 'cron-parser'
 
 import { Trigger, Dyno, FrequencyType, State } from '../../misc'
 
-// todo check if you can use flag.parse to validate input?
-// todo help: flags.help({char: 'h'}),
 export default class TriggersCreate extends Command {
   static usage = 'triggers:create...'
 
@@ -103,10 +101,10 @@ export default class TriggersCreate extends Command {
       }
     }
     if (flags.frequencyType === FrequencyType.ONE_OFF) {
-      if (!/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/.test(flags.schedule)) {
+      if (!/^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})$/.test(flags.schedule)) {
         this.error(`Expected --schedule=${flags.schedule} to be of format YYYY-MM-DD hh:mm:ss\nSee more help with --help`, { exit: 113 })
       }
-      if (!/[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) (2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][0-9]/.test(flags.schedule)) {
+      if (!/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) (2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][0-9]$/.test(flags.schedule)) {
         this.error(`Expected --schedule=${flags.schedule} to be a valid date\nSee more help with --help`, { exit: 114 })
       }
       const schedule = moment.tz(flags.schedule, flags.timezone)

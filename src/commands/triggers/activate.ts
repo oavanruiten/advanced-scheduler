@@ -4,6 +4,7 @@ import {HTTP} from 'http-call'
 const cli: any = require('heroku-cli-util')
 import ux from 'cli-ux'
 import color from '@heroku-cli/color'
+import * as moment from 'moment-timezone'
 
 import { Trigger, Dyno, FrequencyType, State } from '../../misc'
 
@@ -44,6 +45,14 @@ export default class TriggersActivate extends Command {
       if (!flags.force) {
         if (trigger.state === State.ACTIVE) {
           this.error(`Trigger is already active`, { exit: 120 })
+        }
+      }
+
+      if (trigger.frequencyType === FrequencyType.ONE_OFF) {
+        const schedule = moment.tz(trigger.schedule, trigger.timezone)
+        const now = moment.tz(trigger.timezone)
+        if (schedule < now) {
+          this.error(`Expected trigger.schedule=${trigger.schedule} to be in the future\nSee more help with --help`, { exit: 118 })
         }
       }
 

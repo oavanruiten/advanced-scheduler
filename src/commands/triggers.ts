@@ -5,7 +5,7 @@ const cli: any = require('heroku-cli-util')
 import ux from 'cli-ux'
 import cronstrue from 'cronstrue'
 
-import { Trigger } from '../misc'
+import { Trigger, FrequencyType } from '../misc'
 
 export default class Triggers extends Command {
   static usage = 'triggers...'
@@ -55,12 +55,12 @@ export default class Triggers extends Command {
             }
             cli.log(`=== ${cli.color.hex('#ff93ff')(trigger.uuid)} (${cli.color[stateColor](trigger.state)}): ${trigger.name}`)
             let schedule
-            if (trigger.frequencyType === 'recurring') { // todo define as enum
+            if (trigger.frequencyType === FrequencyType.RECURRING) {
               schedule = cronstrue.toString(trigger.schedule, { verbose: true })
             } else {
               schedule = `At ${trigger.schedule}`
             }
-            cli.log(`${cli.color.hex('#af6eff')(schedule)} ${cli.color.hex('#af6eff')(trigger.timezone)} w/ ${cli.color.hex('#57448e')(trigger.dyno + ' ⬢ ')}`)
+            cli.log(`${cli.color.hex('#af6eff')(schedule)} (${cli.color.hex('#af6eff')(trigger.timezone)}) w/ ${cli.color.hex('#57448e')(trigger.dyno + ' ⬢ ')}`)
             cli.log(`$ ${trigger.value} \n`)
           }
         }
