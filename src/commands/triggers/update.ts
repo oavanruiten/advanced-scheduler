@@ -42,7 +42,7 @@ export default class TriggersUpdate extends Command {
     schedule: flags.string({
       description: 'schedule of trigger execution',
       required: false,
-      dependsOn: ['frequencyType']
+      dependsOn: ['frequencyType', 'timezone']
     }),
     value: flags.string({
       description: 'command of trigger',
@@ -75,22 +75,23 @@ export default class TriggersUpdate extends Command {
     timeout: flags.integer({
       description: 'timeout of task execution',
       required: false,
+      dependsOn: ['dyno']
     }),
   }
 
   async run() {
     const {args, flags} = this.parse(TriggersUpdate)
 
-    if (flags.name?.length > 150) {
+    if (flags.name && flags.name.length > 150) {
       this.error(`Expected --name=${flags.name.substring(0, 12) + '...'} to be shorter than 150 characters\nSee more help with --help`, { exit: 110 })
     }
-    if (flags.value?.length > 1000) {
+    if (flags.value && flags.value.length > 1000) {
       this.error(`Expected --value=${flags.value.substring(0, 12) + '...'} to be shorter than 1000 characters\nSee more help with --help`, { exit: 111 })
     }
     if (flags.timezone && moment.tz.zone(flags.timezone) === null) {
       this.error(`Expected --timezone=${flags.timezone} to be a valid timezone\nSee more help with --help`, { exit: 110 })
     }
-    if (flags.frequencyType) {
+    if (flags.frequencyType && flags.schedule && flags.timezone) {
       if (flags.frequencyType === FrequencyType.RECURRING) {
         try {
           parser.parseExpression(flags.schedule)
@@ -121,7 +122,7 @@ export default class TriggersUpdate extends Command {
         }
       }
     }
-    if (flags.dyno) {
+    if (flags.dyno && flags.timeout) {
       if (flags.dyno === Dyno.PRIVATE_S
           || flags.dyno === Dyno.PRIVATE_M
           || flags.dyno === Dyno.PRIVATE_L) {
@@ -146,12 +147,12 @@ export default class TriggersUpdate extends Command {
       const { body: { trigger } } = await HTTP.get<{message: string, code: string, trigger: Trigger}>(`https://api.advancedscheduler.io/triggers/${args.uuid}`, {headers: {authorization: `Bearer ${token}`}})
 
       if (flags.name) trigger.name = flags.name;
-      if (flags.frequencyType) trigger.frequencyType = flags.frequencyType;
+      if (flags.frequencyType) trigger.frequencyType = (flags.frequencyType as FrequencyType);
       if (flags.schedule) trigger.schedule = flags.schedule;
       if (flags.value) trigger.value = flags.value;
       if (flags.timezone) trigger.timezone = flags.timezone;
-      if (flags.state) trigger.state = flags.state;
-      if (flags.dyno) trigger.dyno = flags.dyno;
+      if (flags.state) trigger.state = (flags.state as State);
+      if (flags.dyno) trigger.dyno = (flags.dyno as Dyno);
       if (flags.timeout) trigger.timeout = flags.timeout;
 
       if (trigger.frequencyType === FrequencyType.ONE_OFF) {

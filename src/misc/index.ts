@@ -2,10 +2,10 @@ export interface Trigger {
   uuid: string;
   name: string;
   value: string;
-  frequencyType: string;
+  frequencyType: FrequencyType;
   schedule: string;
   timezone: string;
-  state: string;
+  state: State;
   dyno: Dyno;
   timeout: number;
 }
