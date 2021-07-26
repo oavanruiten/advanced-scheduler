@@ -172,7 +172,7 @@ export default class TriggersUpdate extends Command {
     ux.action.stop(`${color.green('done')}, updated trigger ${color.hex('#ff93ff')(body.trigger.uuid)}`)
   }
 
-  async catch(error) {
+  async catch(error: any) {
     const message = error.body && error.body.message ? error.body.message : error.message
 
     switch (message) {
