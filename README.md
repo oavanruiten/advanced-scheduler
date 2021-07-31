@@ -1,11 +1,11 @@
-advanced-scheduler
+Advanced Scheduler CLI
 ==================
 
-CLI to interact with the [Advanced Scheduler Heroku Add-on](https://elements.heroku.com/addons/advanced-scheduler). The Advanced Scheduler Command Line Interface extends the [Service API](documentation.advancedscheduler.io) and makes it easy for you to create and manage your triggers directly from the terminal. 
+Heroku CLI plugin to interact with the [Advanced Scheduler Heroku Add-on](https://elements.heroku.com/addons/advanced-scheduler). The Advanced Scheduler Command Line Interface extends the [Service API](documentation.advancedscheduler.io) and makes it easy for you to create and manage your triggers directly from the terminal. 
 
 Advanced Scheduler is the next standard in task scheduling on Heroku applications. Get more flexibility, out-of-the-box monitoring, greater reliability and unparalleled ease of use on top of the well-known Heroku Scheduler experience. Learn more [here](https://devcenter.heroku.com/articles/advanced-scheduler).
 
-The Advanced Scheduler Heroku CLI plugin is currently in open beta. Any feedback is welcome at support@advancedscheduler.io.
+The Advanced Scheduler CLI is currently in open beta. Any feedback is welcome at support@advancedscheduler.io.
 
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
@@ -17,10 +17,15 @@ The Advanced Scheduler Heroku CLI plugin is currently in open beta. Any feedback
 * [Usage](#usage)
 * [Commands](#commands)
 <!-- tocstop -->
+# Installation
+<!-- installation -->
+```sh-session
+$ heroku plugins:install advanced-scheduler
+```
+<!-- installationstop -->
 # Usage
 <!-- usage -->
 ```sh-session
-$ heroku plugins:install advanced-scheduler
 $ heroku COMMAND
 running command...
 $ heroku triggers --help [COMMAND]
