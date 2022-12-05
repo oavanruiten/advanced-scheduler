@@ -55,7 +55,9 @@ export default class TriggersCreate extends Command {
       required: true,
       options: [
         Dyno.FREE,
+        Dyno.ECO,
         Dyno.HOBBY,
+        Dyno.BASIC,
         Dyno.STANDARD_1X,
         Dyno.STANDARD_2X,
         Dyno.PERFORMANCE_M,
@@ -154,7 +156,7 @@ export default class TriggersCreate extends Command {
       ux.action.stop(`${color.green('done')}, created trigger ${color.hex('#ff93ff')(body.trigger.uuid)}`)
     } catch (error) {
       ux.action.stop(color.red('!'))
-      
+
       const message = error.body && error.body.message ? error.body.message : error.message
 
       switch (message) {

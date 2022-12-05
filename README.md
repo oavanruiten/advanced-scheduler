@@ -11,6 +11,7 @@ Advanced Scheduler is the next standard in task scheduling on Heroku application
 [![License](https://img.shields.io/npm/l/advanced-scheduler.svg)](https://github.com/oavanruiten/advanced-scheduler/blob/master/package.json)
 
 <!-- toc -->
+* [Installation](#installation)
 * [Usage](#usage)
 * [Commands](#commands)
 <!-- tocstop -->
@@ -23,11 +24,14 @@ $ heroku plugins:install advanced-scheduler
 # Usage
 <!-- usage -->
 ```sh-session
+$ npm install -g advanced-scheduler
 $ heroku COMMAND
 running command...
-$ heroku triggers --help [COMMAND]
+$ heroku (-v|--version|version)
+advanced-scheduler/2.2.13 darwin-arm64 node-v14.21.1
+$ heroku --help [COMMAND]
 USAGE
-  $ heroku triggers
+  $ heroku COMMAND
 ...
 ```
 <!-- usagestop -->
@@ -57,7 +61,7 @@ EXAMPLE
   $ heroku triggers -a example
 ```
 
-_See code: [src/commands/triggers.ts](https://github.com/oavanruiten/advanced-scheduler/blob/v2.2.1/src/commands/triggers.ts)_
+_See code: [src/commands/triggers.ts](https://github.com/oavanruiten/advanced-scheduler/blob/v2.2.13/src/commands/triggers.ts)_
 
 ## `heroku triggers:activate <uuid>...`
 
@@ -76,7 +80,7 @@ OPTIONS
   -h, --help     show CLI help
 ```
 
-_See code: [src/commands/triggers/activate.ts](https://github.com/oavanruiten/advanced-scheduler/blob/v2.2.1/src/commands/triggers/activate.ts)_
+_See code: [src/commands/triggers/activate.ts](https://github.com/oavanruiten/advanced-scheduler/blob/v2.2.13/src/commands/triggers/activate.ts)_
 
 ## `heroku triggers:create...`
 
@@ -87,44 +91,35 @@ USAGE
   $ heroku triggers:create...
 
 OPTIONS
-  -a, --app=app                                                                                         (required) app
-                                                                                                        to run command
-                                                                                                        against
+  -a, --app=app
+      (required) app to run command against
 
-  -h, --help                                                                                            show CLI help
+  -h, --help
+      show CLI help
 
-  --dyno=Free|Hobby|Standard-1X|Standartd-2X|Performance-M|Performance-L|Private-S|Private-M|Private-L  (required) dyno
-                                                                                                        for task
-                                                                                                        execution
+  --dyno=Free|Eco|Hobby|Basic|Standard-1X|Standartd-2X|Performance-M|Performance-L|Private-S|Private-M|Private-L
+      (required) dyno for task execution
 
-  --frequencyType=recurring|one-off                                                                     (required)
-                                                                                                        frequency of
-                                                                                                        trigger
-                                                                                                        execution
+  --frequencyType=recurring|one-off
+      (required) frequency of trigger execution
 
-  --name=name                                                                                           (required) name
-                                                                                                        of trigger
+  --name=name
+      (required) name of trigger
 
-  --schedule=schedule                                                                                   (required)
-                                                                                                        schedule of
-                                                                                                        trigger
-                                                                                                        execution
+  --schedule=schedule
+      (required) schedule of trigger execution
 
-  --state=active|inactive                                                                               [default:
-                                                                                                        active] state of
-                                                                                                        trigger
+  --state=active|inactive
+      [default: active] state of trigger
 
-  --timeout=timeout                                                                                     [default: 1800]
-                                                                                                        timeout of task
-                                                                                                        execution
+  --timeout=timeout
+      [default: 1800] timeout of task execution
 
-  --timezone=timezone                                                                                   [default: UTC]
-                                                                                                        timezone of
-                                                                                                        trigger
+  --timezone=timezone
+      [default: UTC] timezone of trigger
 
-  --value=value                                                                                         (required)
-                                                                                                        command of
-                                                                                                        trigger
+  --value=value
+      (required) command of trigger
 
 EXAMPLES
   $ heroku triggers:create -a example --name "Trigger created via CLI" --frequencyType recurring  --schedule "* * * * *" 
@@ -133,7 +128,7 @@ EXAMPLES
   00:00:00" --value "npm run something" --dyno Free
 ```
 
-_See code: [src/commands/triggers/create.ts](https://github.com/oavanruiten/advanced-scheduler/blob/v2.2.1/src/commands/triggers/create.ts)_
+_See code: [src/commands/triggers/create.ts](https://github.com/oavanruiten/advanced-scheduler/blob/v2.2.13/src/commands/triggers/create.ts)_
 
 ## `heroku triggers:deactivate <uuid>...`
 
@@ -152,7 +147,7 @@ OPTIONS
   -h, --help     show CLI help
 ```
 
-_See code: [src/commands/triggers/deactivate.ts](https://github.com/oavanruiten/advanced-scheduler/blob/v2.2.1/src/commands/triggers/deactivate.ts)_
+_See code: [src/commands/triggers/deactivate.ts](https://github.com/oavanruiten/advanced-scheduler/blob/v2.2.13/src/commands/triggers/deactivate.ts)_
 
 ## `heroku triggers:delete <uuid>...`
 
@@ -173,7 +168,7 @@ EXAMPLE
   $ heroku triggers:delete 01234567-89ab-cdef-0123-456789abcdef -a example
 ```
 
-_See code: [src/commands/triggers/delete.ts](https://github.com/oavanruiten/advanced-scheduler/blob/v2.2.1/src/commands/triggers/delete.ts)_
+_See code: [src/commands/triggers/delete.ts](https://github.com/oavanruiten/advanced-scheduler/blob/v2.2.13/src/commands/triggers/delete.ts)_
 
 ## `heroku triggers:update <uuid>...`
 
@@ -187,35 +182,35 @@ ARGUMENTS
   UUID  uuid of the Advanced Scheduler trigger
 
 OPTIONS
-  -a, --app=app                                                                                         (required) app
-                                                                                                        to run command
-                                                                                                        against
+  -a, --app=app
+      (required) app to run command against
 
-  -h, --help                                                                                            show CLI help
+  -h, --help
+      show CLI help
 
-  --dyno=Free|Hobby|Standard-1X|Standartd-2X|Performance-M|Performance-L|Private-S|Private-M|Private-L  dyno for task
-                                                                                                        execution
+  --dyno=Free|Eco|Hobby|Basic|Standard-1X|Standartd-2X|Performance-M|Performance-L|Private-S|Private-M|Private-L
+      dyno for task execution
 
-  --frequencyType=recurring|one-off                                                                     frequency of
-                                                                                                        trigger
-                                                                                                        execution
+  --frequencyType=recurring|one-off
+      frequency of trigger execution
 
-  --name=name                                                                                           name of trigger
+  --name=name
+      name of trigger
 
-  --schedule=schedule                                                                                   schedule of
-                                                                                                        trigger
-                                                                                                        execution
+  --schedule=schedule
+      schedule of trigger execution
 
-  --state=active|inactive                                                                               state of trigger
+  --state=active|inactive
+      state of trigger
 
-  --timeout=timeout                                                                                     timeout of task
-                                                                                                        execution
+  --timeout=timeout
+      timeout of task execution
 
-  --timezone=timezone                                                                                   timezone of
-                                                                                                        trigger
+  --timezone=timezone
+      timezone of trigger
 
-  --value=value                                                                                         command of
-                                                                                                        trigger
+  --value=value
+      command of trigger
 
 EXAMPLES
   $ heroku triggers:update 01234567-89ab-cdef-0123-456789abcdef -a example --name "Trigger updated via CLI" 
@@ -224,5 +219,5 @@ EXAMPLES
   --frequencyType one-off  --schedule "2025-12-25 00:00:00" --value "npm run something-else" --dyno Free
 ```
 
-_See code: [src/commands/triggers/update.ts](https://github.com/oavanruiten/advanced-scheduler/blob/v2.2.1/src/commands/triggers/update.ts)_
+_See code: [src/commands/triggers/update.ts](https://github.com/oavanruiten/advanced-scheduler/blob/v2.2.13/src/commands/triggers/update.ts)_
 <!-- commandsstop -->

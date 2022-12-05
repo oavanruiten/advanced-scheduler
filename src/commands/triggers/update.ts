@@ -62,7 +62,9 @@ export default class TriggersUpdate extends Command {
       required: false,
       options: [
         Dyno.FREE,
+        Dyno.ECO,
         Dyno.HOBBY,
+        Dyno.BASIC,
         Dyno.STANDARD_1X,
         Dyno.STANDARD_2X,
         Dyno.PERFORMANCE_M,
