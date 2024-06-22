@@ -62,9 +62,21 @@ export default class TriggersCreate extends Command {
         Dyno.STANDARD_2X,
         Dyno.PERFORMANCE_M,
         Dyno.PERFORMANCE_L,
+        Dyno.PERFORMANCE_L_RAM,
+        Dyno.PERFORMANCE_XL,
+        Dyno.PERFORMANCE_2XL,
         Dyno.PRIVATE_S,
         Dyno.PRIVATE_M,
         Dyno.PRIVATE_L,
+        Dyno.PRIVATE_L_RAM,
+        Dyno.PRIVATE_XL,
+        Dyno.PRIVATE_2XL,
+        Dyno.SHIELD_S,
+        Dyno.SHIELD_M,
+        Dyno.SHIELD_L,
+        Dyno.SHIELD_L_RAM,
+        Dyno.SHIELD_XL,
+        Dyno.SHIELD_2XL,
       ]
     }),
     timeout: flags.integer({
@@ -117,7 +129,16 @@ export default class TriggersCreate extends Command {
     }
     if (flags.dyno === Dyno.PRIVATE_S
         || flags.dyno === Dyno.PRIVATE_M
-        || flags.dyno === Dyno.PRIVATE_L) {
+        || flags.dyno === Dyno.PRIVATE_L
+        || flags.dyno === Dyno.PRIVATE_L_RAM
+        || flags.dyno === Dyno.PRIVATE_XL
+        || flags.dyno === Dyno.PRIVATE_2XL
+        || flags.dyno === Dyno.SHIELD_S
+        || flags.dyno === Dyno.SHIELD_M
+        || flags.dyno === Dyno.SHIELD_L
+        || flags.dyno === Dyno.SHIELD_L_RAM
+        || flags.dyno === Dyno.SHIELD_XL
+        || flags.dyno === Dyno.SHIELD_2XL) {
       if (flags.timeout < 240 || flags.timeout > 86400) {
         this.error(`Expected --timeout=${flags.timeout} to be between 240 and 86400\nSee more help with --help`, { exit: 116 })
       }

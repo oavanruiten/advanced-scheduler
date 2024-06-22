@@ -28,7 +28,7 @@ $ npm install -g advanced-scheduler
 $ heroku COMMAND
 running command...
 $ heroku (-v|--version|version)
-advanced-scheduler/2.2.13 darwin-arm64 node-v14.21.1
+advanced-scheduler/2.3.0 darwin-arm64 node-v16.20.2
 $ heroku --help [COMMAND]
 USAGE
   $ heroku COMMAND
@@ -61,7 +61,7 @@ EXAMPLE
   $ heroku triggers -a example
 ```
 
-_See code: [src/commands/triggers.ts](https://github.com/oavanruiten/advanced-scheduler/blob/v2.2.13/src/commands/triggers.ts)_
+_See code: [src/commands/triggers.ts](https://github.com/oavanruiten/advanced-scheduler/blob/v2.3.0/src/commands/triggers.ts)_
 
 ## `heroku triggers:activate <uuid>...`
 
@@ -80,7 +80,7 @@ OPTIONS
   -h, --help     show CLI help
 ```
 
-_See code: [src/commands/triggers/activate.ts](https://github.com/oavanruiten/advanced-scheduler/blob/v2.2.13/src/commands/triggers/activate.ts)_
+_See code: [src/commands/triggers/activate.ts](https://github.com/oavanruiten/advanced-scheduler/blob/v2.3.0/src/commands/triggers/activate.ts)_
 
 ## `heroku triggers:create...`
 
@@ -97,7 +97,9 @@ OPTIONS
   -h, --help
       show CLI help
 
-  --dyno=Free|Eco|Hobby|Basic|Standard-1X|Standartd-2X|Performance-M|Performance-L|Private-S|Private-M|Private-L
+  --dyno=Free|Eco|Hobby|Basic|Standard-1X|Standartd-2X|Performance-M|Performance-L|Performance-L-RAM|Performance-XL|Perf
+  ormance-2XL|Private-S|Private-M|Private-L|Private-L-RAM|Private-XL|Private-2XL|Shield-S|Shield-M|Shield-L|Shield-L-RAM
+  |Shield-XL|Shield-2XL
       (required) dyno for task execution
 
   --frequencyType=recurring|one-off
@@ -122,13 +124,13 @@ OPTIONS
       (required) command of trigger
 
 EXAMPLES
-  $ heroku triggers:create -a example --name "Trigger created via CLI" --frequencyType recurring  --schedule "* * * * *" 
-  --value "npm run something" --dyno Free
+  $ heroku triggers:create -a example --name "Trigger created via CLI" --frequencyType recurring  --schedule "* * * * *"
+   --value "npm run something" --dyno Free
   $ heroku triggers:create -a example --name "Trigger created via CLI" --frequencyType one-off  --schedule "2025-12-25 
   00:00:00" --value "npm run something" --dyno Free
 ```
 
-_See code: [src/commands/triggers/create.ts](https://github.com/oavanruiten/advanced-scheduler/blob/v2.2.13/src/commands/triggers/create.ts)_
+_See code: [src/commands/triggers/create.ts](https://github.com/oavanruiten/advanced-scheduler/blob/v2.3.0/src/commands/triggers/create.ts)_
 
 ## `heroku triggers:deactivate <uuid>...`
 
@@ -147,7 +149,7 @@ OPTIONS
   -h, --help     show CLI help
 ```
 
-_See code: [src/commands/triggers/deactivate.ts](https://github.com/oavanruiten/advanced-scheduler/blob/v2.2.13/src/commands/triggers/deactivate.ts)_
+_See code: [src/commands/triggers/deactivate.ts](https://github.com/oavanruiten/advanced-scheduler/blob/v2.3.0/src/commands/triggers/deactivate.ts)_
 
 ## `heroku triggers:delete <uuid>...`
 
@@ -168,7 +170,7 @@ EXAMPLE
   $ heroku triggers:delete 01234567-89ab-cdef-0123-456789abcdef -a example
 ```
 
-_See code: [src/commands/triggers/delete.ts](https://github.com/oavanruiten/advanced-scheduler/blob/v2.2.13/src/commands/triggers/delete.ts)_
+_See code: [src/commands/triggers/delete.ts](https://github.com/oavanruiten/advanced-scheduler/blob/v2.3.0/src/commands/triggers/delete.ts)_
 
 ## `heroku triggers:update <uuid>...`
 
@@ -188,7 +190,9 @@ OPTIONS
   -h, --help
       show CLI help
 
-  --dyno=Free|Eco|Hobby|Basic|Standard-1X|Standartd-2X|Performance-M|Performance-L|Private-S|Private-M|Private-L
+  --dyno=Free|Eco|Hobby|Basic|Standard-1X|Standartd-2X|Performance-M|Performance-L|Performance-L-RAM|Performance-XL|Perf
+  ormance-2XL|Private-S|Private-M|Private-L|Private-L-RAM|Private-XL|Private-2XL|Shield-S|Shield-M|Shield-L|Shield-L-RAM
+  |Shield-XL|Shield-2XL
       dyno for task execution
 
   --frequencyType=recurring|one-off
@@ -219,5 +223,5 @@ EXAMPLES
   --frequencyType one-off  --schedule "2025-12-25 00:00:00" --value "npm run something-else" --dyno Free
 ```
 
-_See code: [src/commands/triggers/update.ts](https://github.com/oavanruiten/advanced-scheduler/blob/v2.2.13/src/commands/triggers/update.ts)_
+_See code: [src/commands/triggers/update.ts](https://github.com/oavanruiten/advanced-scheduler/blob/v2.3.0/src/commands/triggers/update.ts)_
 <!-- commandsstop -->
